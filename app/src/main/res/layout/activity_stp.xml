@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -14,8 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.0001"
         android:textColor="@color/textWhite"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="@string/app_name"
+        android:fontFamily="sans-serif"
+        android:text="Enter 4 digit STP"
         android:gravity="center"
         android:layout_gravity="center"
         android:textStyle="bold"
@@ -29,9 +30,9 @@
         android:padding="@dimen/edittext_padding"
         android:layout_gravity="center"
         android:gravity="center"
-        android:hint="Enter the Register no."
+        android:hint="Enter the Password"
         android:textColorHint="@color/textWhite"
-        android:inputType="number"
+        android:inputType="numberPassword"
         android:textColor="@color/textWhite"
         android:background="@drawable/rectanglebox"
         android:drawableLeft="@drawable/account"/>
@@ -40,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.0001"
         android:id="@+id/loginButton"
-        android:text="Login"
+        android:text="Go"
         android:layout_marginTop="@dimen/top_margin"
         android:textColor="@color/textBlack"
         android:theme="@style/RippleButton"

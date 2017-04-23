@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     //Change the activity to the STP page
     public void changeActivity(){
-        Intent i = new Intent(LoginActivity.this,STPActivity.this);
+        Intent i = new Intent(LoginActivity.this,STPActivity.class);
         startActivity(i);
     }
 
