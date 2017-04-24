@@ -9,8 +9,10 @@ package com.example.nirmal.attendancetracker;
 //libraries that are going to be used will be stored here
 public class DataModel {
     //Shared preferences name and the key names are declared
+    public static final int PERMISSION_REQUEST_CODE = 1;
     public static final String SharedPrefsName = "UserDetails";
     public static final String SharedPrefsUserName = "UserName";
     public static final String SharedPrefsSTP = "STP";
     public static final String SharedPrefsDefault = "Default";
+    public static final String GoogleMapsAPIKey = "AIzaSyCYnuRbF9ZCpFkCyeOA6MmhXL2HCyHQtH0";
 }

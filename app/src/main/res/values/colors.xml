@@ -5,6 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="textWhite">#FFFFFF</color>
     <color name="textBlack">#000000</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
     <color name="ripple_color">#F4F4F4</color>
     <color name="button_color">#FFFFFF</color>
+    <color name="tabSelectedColor">#009688</color>
 </resources>

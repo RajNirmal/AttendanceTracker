@@ -27,7 +27,7 @@ public class STPActivity extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stp);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         //Check if the user already has a STP
         flag = checkPreviousUserData();
         //Initialise the views

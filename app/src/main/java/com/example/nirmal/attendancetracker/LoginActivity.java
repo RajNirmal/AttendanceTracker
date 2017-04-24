@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //No need to show the action bar in login page
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         //Check if the user has already logged in
         checkPreviousUserData();
         //Initialise the views
