@@ -9,11 +9,38 @@
         android:layout_height="wrap_content"
         android:text="This is the records fragment"
         android:textColor="@color/textBlack"
+        android:visibility="gone"
         android:id="@+id/dummyText"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/TestButton"
+        android:visibility="gone"
         android:text="Click here to call node.js"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textBlack"
+        android:text="The time of entry is displayed in the recycler view. In the next Iteration the complete date will be displayed "/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_below="@+id/r"
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nothingtoshow"
+        android:text="No Meetings to show"
+        android:textColor="#757575"
+        android:gravity="center"
+        android:layout_marginTop="250dp"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:textSize="@dimen/text_huge"/>
+
 
 </LinearLayout>
