@@ -2,4 +2,6 @@
     <string name="app_name">Rokênsho</string>
     <string name="google_play_map_key">AIzaSyCYnuRbF9ZCpFkCyeOA6MmhXL2HCyHQtH0</string>
     <integer name="google_play_services_version">7095000</integer>
+
+
 </resources>
