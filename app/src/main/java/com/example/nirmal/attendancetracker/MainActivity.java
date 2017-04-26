@@ -18,13 +18,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.example.nirmal.attendancetracker.DatabaseHelper.SingletonDataClass;
 
-import static com.example.nirmal.attendancetracker.DataModel.PERMS;
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initVolley(){
-        DataModel.initialiseVolley(getApplicationContext());
+        SingletonDataClass.initialiseVolley(getApplicationContext());
     }
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
@@ -66,14 +65,14 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
             Toast.makeText(getApplicationContext(), "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
         } else {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, DataModel.PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, SingletonDataClass.PERMISSION_REQUEST_CODE);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case DataModel.PERMISSION_REQUEST_CODE:
+            case SingletonDataClass.PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.e("value", "Permission Granted, Now you can use local drive .");
                 } else {

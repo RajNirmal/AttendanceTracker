@@ -12,4 +12,6 @@
     <dimen name="tab_label_size">15sp</dimen>
     <dimen name="tab_layout_height">70dp</dimen>
     <dimen name="map_height">64dp</dimen>
+    <dimen name="floating_margin">16dp</dimen>
+    <dimen name="floating_button_dimens">34dp</dimen>
 </resources>

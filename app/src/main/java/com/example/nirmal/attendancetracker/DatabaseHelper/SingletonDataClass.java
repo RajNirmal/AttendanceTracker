@@ -1,9 +1,10 @@
-package com.example.nirmal.attendancetracker;
+package com.example.nirmal.attendancetracker.DatabaseHelper;
 
 import android.Manifest;
 import android.content.Context;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 /**
@@ -13,14 +14,16 @@ import com.android.volley.toolbox.Volley;
 //This is a singleton class that will be holding all the
 //variables that are needed by the app and also the volley
 //libraries that are going to be used will be stored here
-public class DataModel {
+public class SingletonDataClass {
     //Shared preferences name and the key names are declared
     public static final int PERMISSION_REQUEST_CODE = 1;
     public static final String SharedPrefsName = "UserDetails";
     public static final String SharedPrefsUserName = "UserName";
     public static final String SharedPrefsSTP = "STP";
     public static final String SharedPrefsDefault = "Default";
-
+    public static int SharedPrefsFlag = 0;
+    public static String SharedPrefsUserNameForSession = "";
+    public static String SharedPrefsUniqueId = "";
     //Permission related Constants
     public static final String[] PERMS= {Manifest.permission.ACCESS_FINE_LOCATION};
 
@@ -42,8 +45,18 @@ public class DataModel {
         VolleyRequestQueue = Volley.newRequestQueue(context);
     }
 
-    //URL where data can be fetched from
+    //REST API end points for accessing the database
     public static final String URLTest = "https://rokensho.herokuapp.com/test";
+    public static final String URLInsert = "https://rokensho.herokuapp.com/insert";
+    public static final String URLUpdate = "https://rokensho.herokuapp.com/update";
+    public static final String URLSelect = "https://rokensho.herokuapp.com/select";
+    //The key with which data has to be sent to the REST end points
+    public static final String KeyUserName = "UserName";
+    public static final String KeyUniqueID = "UniqueID";
+    public static final String KeyTimeStamp = "TimeStamp1";
+    public static final String KeyTimeStamp0 = "TimeStamp2";
+    public static final String KeyDuration = "Duration";
+
     //A static class that will convert the difference between two lat and long into metre
     public static float distFrom(double lat1, double lng1, double lat2, double lng2) {
         double earthRadius = 6371000; //meters

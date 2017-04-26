@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.UserDictionary;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.nirmal.attendancetracker.DatabaseHelper.SingletonDataClass;
 
 /**
  * Created by nirmal on 23/4/17.
@@ -85,9 +86,9 @@ public class STPActivity extends AppCompatActivity implements View.OnClickListen
 
     //This function enters the STP in sharedprefs for the first time
     public void writeDatainSharedPrefs(String userData){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(DataModel.SharedPrefsName,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SingletonDataClass.SharedPrefsName,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(DataModel.SharedPrefsSTP, userData);
+        editor.putString(SingletonDataClass.SharedPrefsSTP, userData);
         editor.commit();
     }
 
@@ -130,10 +131,10 @@ public class STPActivity extends AppCompatActivity implements View.OnClickListen
     //This function will check if the user has already logged in the app before
     //if so then the STP is taken and stored
     public boolean checkPreviousUserData(){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(DataModel.SharedPrefsName,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SingletonDataClass.SharedPrefsName,MODE_PRIVATE);
         try {
-            STP = sharedPreferences.getString(DataModel.SharedPrefsSTP, DataModel.SharedPrefsDefault);
-            if (STP.equals(DataModel.SharedPrefsDefault)){
+            STP = sharedPreferences.getString(SingletonDataClass.SharedPrefsSTP, SingletonDataClass.SharedPrefsDefault);
+            if (STP.equals(SingletonDataClass.SharedPrefsDefault)){
                 //No user data was found
                 //This is the first time the user is logging in to the app
                 return false;

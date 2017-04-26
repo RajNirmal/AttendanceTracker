@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.nirmal.attendancetracker.DatabaseHelper.SingletonDataClass;
 
 /**
  * Created by nirmal on 23/4/17.
@@ -44,16 +45,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //This function will check if the user has already logged in the app before
     //if so then he should be redirected to the STP page
     public void checkPreviousUserData(){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(DataModel.SharedPrefsName,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SingletonDataClass.SharedPrefsName,MODE_PRIVATE);
         try {
-            String userName = sharedPreferences.getString(DataModel.SharedPrefsUserName, DataModel.SharedPrefsDefault);
-            if (userName.equals(DataModel.SharedPrefsDefault)){
+            String userName = sharedPreferences.getString(SingletonDataClass.SharedPrefsUserName, SingletonDataClass.SharedPrefsDefault);
+            if (userName.equals(SingletonDataClass.SharedPrefsDefault)){
                 //No user data was found
                 //This is the first time the user is logging in to the app
             }else{
                 //The user has already logged into the app
                 //So no need to ask for the user ID again
                 //Redirect the user the STP screen
+                SingletonDataClass.SharedPrefsUserNameForSession = userName;
                 changeActivity();
             }
         }catch (NullPointerException e){
@@ -91,9 +93,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     //Write the user name in shared prefs for future usage
     private void writeUserNameinSharedPrefs(String UserName){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(DataModel.SharedPrefsName,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SingletonDataClass.SharedPrefsName,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(DataModel.SharedPrefsUserName,UserName);
+        editor.putString(SingletonDataClass.SharedPrefsUserName,UserName);
         editor.commit();
     }
 

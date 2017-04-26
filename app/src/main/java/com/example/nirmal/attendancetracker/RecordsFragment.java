@@ -9,14 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
-import org.w3c.dom.Text;
+import com.example.nirmal.attendancetracker.DatabaseHelper.SingletonDataClass;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,24 +43,26 @@ public class RecordsFragment extends Fragment {
         return subView;
     }
     public void callVolley(){
-        StringRequest sr = new StringRequest(Request.Method.POST, DataModel.URLTest, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                resultView.setText(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                resultView.setText(error.toString());
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> maps = new HashMap<>();
-                maps.put("data","DataModel.URLTest");
-                return maps;
-            }
-        };
-        DataModel.VolleyRequestQueue.add(sr);
+        StringRequest sr = new StringRequest(Request.Method.POST, SingletonDataClass.URLSelect, new Response.Listener<String>() {
+        @Override
+        public void onResponse(String response) {
+            Toast.makeText(getActivity(),response.toString(),Toast.LENGTH_SHORT).show();
+            resultView.setText(response.toString());
+        }
+    }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Toast.makeText(getActivity(),error.toString(),Toast.LENGTH_SHORT).show();
+            resultView.setText(error.toString());
+        }
+    }){
+        @Override
+        protected Map<String, String> getParams() throws AuthFailureError {
+            HashMap<String,String> maps = new HashMap<>();
+            maps.put(SingletonDataClass.KeyUserName,SingletonDataClass.SharedPrefsUserNameForSession);
+            return maps;
+        }
+    };
+        SingletonDataClass.VolleyRequestQueue.add(sr);
     }
 }

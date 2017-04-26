@@ -1,12 +1,10 @@
 package com.example.nirmal.attendancetracker;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -23,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.nirmal.attendancetracker.DatabaseHelper.SingletonDataClass;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -40,7 +39,7 @@ import static android.content.Context.LOCATION_SERVICE;
  * Created by nirmal on 25/4/17.
  */
 
-public class MapsFragment extends Fragment implements LocationListener,GoogleApiClient.OnConnectionFailedListener,GoogleApiClient.ConnectionCallbacks{
+public class CodeDump extends Fragment implements LocationListener,GoogleApiClient.OnConnectionFailedListener,GoogleApiClient.ConnectionCallbacks{
     MapView mapView;
     GoogleMap googleMap;
     LocationHandler locHandler;
@@ -94,16 +93,16 @@ public class MapsFragment extends Fragment implements LocationListener,GoogleApi
     //So the user will know where he has to be in order to register his attendance
     public void showCampusCircle(){
         CircleOptions campusCircle = new CircleOptions();
-        campusCircle.center(new LatLng(DataModel.CampusLatitude,DataModel.CampusLongitude));
+        campusCircle.center(new LatLng(SingletonDataClass.CampusLatitude, SingletonDataClass.CampusLongitude));
         campusCircle.radius(200);
-        campusCircle.strokeColor(Color.parseColor(DataModel.mapStrokeColor));
+        campusCircle.strokeColor(Color.parseColor(SingletonDataClass.mapStrokeColor));
         campusCircle.strokeWidth(4);
-        campusCircle.fillColor(Color.parseColor(DataModel.mapFillColor));
+        campusCircle.fillColor(Color.parseColor(SingletonDataClass.mapFillColor));
         googleMap.addCircle(campusCircle);
     }
 
     public void zoomIntoUser(Location location){
-        Toast.makeText(getActivity(),location.getLatitude()+"  "+location.getLongitude()+"",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(),location.getLatitude()+"  "+location.getLongitude()+"",Toast.LENGTH_SHORT).show();
         String title = "Unable to get location";
         String body = "Please login to the app after turning on the GPS";
         showTheUserInMap(location);
@@ -154,7 +153,7 @@ public class MapsFragment extends Fragment implements LocationListener,GoogleApi
     }
 
     public void showTheUserInMap(Location location){
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()), DataModel.zoomlevel);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()), SingletonDataClass.zoomlevel);
         googleMap.animateCamera(cameraUpdate);
         //Show the user the location of his campus
         showCampusCircle();
@@ -174,7 +173,7 @@ public class MapsFragment extends Fragment implements LocationListener,GoogleApi
         if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
             Toast.makeText(getActivity(), "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
         } else {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, DataModel.PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, SingletonDataClass.PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -197,7 +196,7 @@ public class MapsFragment extends Fragment implements LocationListener,GoogleApi
     public void onLocationChanged(Location location) {
         //This function will allow the map to zoom in on current user location
         //and Check if user has allowed location permission
-        Toast.makeText(getActivity(), "From onLocationChanged", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "From onLocationChanged", Toast.LENGTH_SHORT).show();
         zoomIntoUser(location);
     }
 
@@ -219,7 +218,7 @@ public class MapsFragment extends Fragment implements LocationListener,GoogleApi
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case DataModel.PERMISSION_REQUEST_CODE:
+            case SingletonDataClass.PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.e("value", "Permission Granted, Now you can use local drive .");
                 } else {

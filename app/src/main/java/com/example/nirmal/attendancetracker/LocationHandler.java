@@ -132,7 +132,7 @@ public class LocationHandler extends Service implements LocationListener {
 //    @Override
 //    public void onCreate() {
 //        super.onCreate();
-//        intent = new Intent(DataModel.STRING_TEST);
+//        intent = new Intent(SingletonDataClass.STRING_TEST);
 //    }
 
 
