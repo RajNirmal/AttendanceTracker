@@ -43,6 +43,11 @@ public class STPActivity extends AppCompatActivity implements View.OnClickListen
         STPButton.setOnClickListener(this);
     }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+    }
+
     //Handle click events
     @Override
     public void onClick(View view) {
