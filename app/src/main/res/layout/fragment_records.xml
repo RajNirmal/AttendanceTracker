@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="#e0e0e0"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
@@ -15,12 +16,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/TestButton"
-        android:visibility="gone"
-        android:text="Click here to call node.js"/>
+        android:textColor="@color/textWhite"
+        android:layout_gravity="center"
+        android:theme="@style/RippleButton2"
+        android:text="Reload"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/textBlack"
+        android:visibility="gone"
         android:text="The time of entry is displayed in the recycler view. In the next Iteration the complete date will be displayed "/>
     <android.support.v7.widget.RecyclerView
         android:layout_marginTop="5dp"
@@ -34,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/nothingtoshow"
-        android:text="No Meetings to show"
+        android:text="No Records to show"
         android:textColor="#757575"
         android:gravity="center"
         android:layout_marginTop="250dp"

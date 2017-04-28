@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nirmal.attendancetracker.DatabaseHelper.DataEntryModel;
 import com.example.nirmal.attendancetracker.DatabaseHelper.SingletonDataClass;
@@ -20,22 +21,29 @@ import static android.support.v7.recyclerview.R.styleable.RecyclerView;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
     ArrayList<DataEntryModel> dataSet;
     CardView cards;
+    RecordsFragment frag;
+
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView UserName, TimeStamp;
+        TextView UserName, TimeStamp, Duration;
         public MyViewHolder(View itemView){
             super(itemView);
             this.UserName = (TextView)itemView.findViewById(R.id.userName);
             TimeStamp = (TextView)itemView.findViewById(R.id.timestamp_of_user);
+            Duration = (TextView)itemView.findViewById(R.id.duration_of_user);
             cards = (CardView)itemView.findViewById(R.id.card_view);
+            cards.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
 
+            String x = String.valueOf(dataSet.get(getAdapterPosition()).getDuration());
+            frag.showToast(x);
         }
     }
-    public CustomAdapter(ArrayList<DataEntryModel> data){
+    public CustomAdapter(ArrayList<DataEntryModel> data, RecordsFragment fragment){
         dataSet = data;
+        frag = fragment;
     }
 
     @Override
@@ -48,9 +56,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         TextView userName = holder.UserName;
-        TextView TimeStamp = holder.TimeStamp;
+        TextView timeStamp = holder.TimeStamp;
+        TextView durationSpent = holder.Duration;
         userName.setText(SingletonDataClass.SharedPrefsUserNameForSession);
-        TimeStamp.setText(dataSet.get(position).getTimeStamp());
+        timeStamp.setText(dataSet.get(position).getTimeStamp());
+        durationSpent.setText(String.valueOf(dataSet.get(position).getDuration()));
+
     }
 
     @Override

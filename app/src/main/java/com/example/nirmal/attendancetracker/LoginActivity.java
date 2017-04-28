@@ -12,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.example.nirmal.attendancetracker.DatabaseHelper.SingletonDataClass;
 
 /**
@@ -27,6 +31,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         //No need to show the action bar in login page
 //        getSupportActionBar().hide();
+        //wake up the backend
+        callWakeUp();
         //Check if the user has already logged in
         checkPreviousUserData();
         //Initialise the views
@@ -34,6 +40,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    public void initVolley(){
+        SingletonDataClass.initialiseVolley(getApplicationContext());
+    }
+
+    public void callWakeUp(){
+        //Initialise the volley singleton item so that network calls can be made
+        //from anywhere in the app
+        initVolley();
+        StringRequest sr = new StringRequest(Request.Method.GET, SingletonDataClass.URLWake, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        SingletonDataClass.VolleyRequestQueue.add(sr);
+    }
     //This function will initialise all the views in the layout and map it into the object in java file
     //Also set the onClickListener for the buttons
     public void initializeViews(){

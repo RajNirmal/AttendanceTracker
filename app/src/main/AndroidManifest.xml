@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".STPActivity"/>
         <activity android:name=".MainActivity"/>
+        <activity android:name="Settings"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_play_map_key" />

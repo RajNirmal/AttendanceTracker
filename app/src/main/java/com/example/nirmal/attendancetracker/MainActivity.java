@@ -18,6 +18,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -41,15 +43,8 @@ public class MainActivity extends AppCompatActivity {
             checkPermission();
         //Initialise all the views
         initViews();
-        //Initialise the volley singleton item so that network calls can be made
-        //from anywhere in the app
-        initVolley();
-
     }
 
-    public void initVolley(){
-        SingletonDataClass.initialiseVolley(getApplicationContext());
-    }
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
         if (result == PackageManager.PERMISSION_GRANTED) {
@@ -84,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+
     //Initialise all the views
     //Setup the viewpager and inflate them with the necessary data
     public void initViews(){
@@ -107,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void AlertBuilder(String AlertBody){
         final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
-        alert.setTitle("Whatever");
+        alert.setTitle("Location not found");
         alert.setMessage(AlertBody);
         alert.setCancelable(false);
         alert.setNegativeButton("OK", new DialogInterface.OnClickListener() {
@@ -140,6 +137,12 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Toast.makeText(getApplicationContext(), "This functionality is disabled", Toast.LENGTH_SHORT).show();
+    }
+
     public class ViewPagerCustomAdapter extends FragmentPagerAdapter {
         private final ArrayList<Fragment> fragmentList = new ArrayList<>();
         private final ArrayList<String> fragmentListTitle = new ArrayList<>();
@@ -166,5 +169,22 @@ public class MainActivity extends AppCompatActivity {
             fragmentList.add(fragment);
             fragmentListTitle.add(Title);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_settings){
+            Intent i = new Intent(MainActivity.this,Settings.class);
+            startActivity(i);
+        }
+//        Toast.makeText(this, id+" is selected", Toast.LENGTH_SHORT).show();
+        return true;
     }
 }

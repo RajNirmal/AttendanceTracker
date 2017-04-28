@@ -14,4 +14,8 @@
         <item name="colorControlHighlight">@color/ripple_color</item>
         <item name="colorButtonNormal">@color/button_color</item>
     </style>
+    <style name="RippleButton2" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/mapFillColor</item>
+    </style>
 </resources>

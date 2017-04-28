@@ -21,7 +21,7 @@ public class SingletonDataClass {
     public static final String SharedPrefsUserName = "UserName";
     public static final String SharedPrefsSTP = "STP";
     public static final String SharedPrefsDefault = "Default";
-    public static int SharedPrefsFlag = 0;
+    public static final String SharedPrefsFlag = "Flag";
     public static String SharedPrefsUserNameForSession = "";
     public static String SharedPrefsUniqueId = "";
     //Permission related Constants
@@ -50,6 +50,8 @@ public class SingletonDataClass {
     public static final String URLInsert = "https://rokensho.herokuapp.com/insert";
     public static final String URLUpdate = "https://rokensho.herokuapp.com/update";
     public static final String URLSelect = "https://rokensho.herokuapp.com/select";
+    public static final String URLWake = "https://rokensho.herokuapp.com/wakeup";
+
     //The key with which data has to be sent to the REST end points
     public static final String KeyUserName = "UserName";
     public static final String KeyUniqueID = "UniqueID";

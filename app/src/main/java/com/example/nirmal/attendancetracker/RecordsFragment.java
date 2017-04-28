@@ -26,11 +26,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static android.support.v7.recyclerview.R.attr.layoutManager;
 
@@ -40,7 +43,7 @@ import static android.support.v7.recyclerview.R.attr.layoutManager;
 
 public class RecordsFragment extends Fragment {
     Button callButton;
-    TextView resultView;
+    TextView resultView,noShow;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     String TimeStamp[];
@@ -51,6 +54,7 @@ public class RecordsFragment extends Fragment {
         View subView = inflater.inflate(R.layout.fragment_records,container,false);
         callButton = (Button) subView.findViewById(R.id.TestButton);
         resultView = (TextView)subView.findViewById(R.id.dummyText);
+        noShow = (TextView)subView.findViewById(R.id.nothingtoshow);
         recyclerView = (RecyclerView)subView.findViewById(R.id.my_recycler_view);
         dataset = new ArrayList<>();
         recyclerView.setHasFixedSize(false);
@@ -67,37 +71,53 @@ public class RecordsFragment extends Fragment {
         return subView;
     }
     public void callVolley(){
-
+        dataset = new ArrayList<>();
         StringRequest sr = new StringRequest(Request.Method.POST, SingletonDataClass.URLSelect, new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
 //            Toast.makeText(getActivity(),response.toString(),Toast.LENGTH_SHORT).show();
 //            resultView.setText(response.toString());
-            StringBuilder sb = new StringBuilder();
+//            StringBuilder sb = new StringBuilder();
             try{
                 JSONArray jsonArray = new JSONArray(response);
                 if(jsonArray.length()!=0) {
                     TimeStamp = new String[jsonArray.length()];
-
                     for(int i=0;i<jsonArray.length();i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         TimeStamp[i] = jsonObject.getString("TimeStamp1");
+                        //Split the string and then join them in the format needed
                         int ij = TimeStamp[i].indexOf('T');
-                        String s = TimeStamp[i].substring(0,ij-1);
-                        String s2 = TimeStamp[i].substring(ij+1,TimeStamp[i].length()-1);
-                        sb.append(s+"\n"+s2+"\n");
+                        String s = TimeStamp[i].substring(0,ij);
+                        String s2 = TimeStamp[i].substring(ij+1,TimeStamp[i].length()-8);
                         String mod = s+" "+s2;
-                        dataset.add(new DataEntryModel(1,s2,10,1));
+                        String fString = changeDateIntoRequiredFormat(mod);
+                        String finalTimestamp = jsonObject.getString("TimeStamp2");
+                        int difference;
+                        int ij1 = finalTimestamp.indexOf('T');
+                        if(ij1 == -1)
+                            difference = 7;
+                        else {
+                            String s1 = finalTimestamp.substring(0,ij1);
+                            String s12 = finalTimestamp.substring(ij1+1,TimeStamp[i].length()-8);
+                            String finalTimeFormatted = changeDateIntoRequiredFormat(s1+" "+s12);
+                            difference = getDurationBWTimeStamps(fString,finalTimeFormatted);
+                        }
+//                        sb.append(finalTimestamp+"\n");
+                        DataEntryModel m = new DataEntryModel(1,fString,difference,1);
+                        dataset.add(m);
                     }
-                    CustomAdapter myAdapter = new CustomAdapter(dataset);
+                    noShow.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    CustomAdapter myAdapter = new CustomAdapter(dataset,RecordsFragment.this);
                     recyclerView.setAdapter(myAdapter);
 //                    resultView.setText(sb.toString());
                 }else{
-
+                    recyclerView.setVisibility(View.GONE);
+                    noShow.setVisibility(View.VISIBLE);
                 }
             }catch (Exception e){
-                sb.append(e.toString());
-                resultView.setText(sb.toString());
+//                sb.append(e.toString());
+//                resultView.setText(sb.toString());
             }
         }
     }, new Response.ErrorListener() {
@@ -115,5 +135,46 @@ public class RecordsFragment extends Fragment {
         }
     };
         SingletonDataClass.VolleyRequestQueue.add(sr);
+    }
+
+    public int getDurationBWTimeStamps(String Time1, String Time2){
+        int diff;
+//        if(Time2.equals(""))
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd h:mm a");
+            Date dateStart = formatter.parse(Time1);
+            Date dateEnd = formatter.parse(Time2);
+            diff = getDifferenceInHours(dateStart,dateEnd);
+        }catch (ParseException e){
+            diff = 10;
+        }
+        return diff;
+    }
+
+    public int getDifferenceInHours(Date startDate, Date endDate){
+        long secs = (endDate.getTime() - startDate.getTime()) / 1000;
+        int hours = (int)secs / 3600;
+        if(hours>7)
+            return 7;
+        else
+            return hours;
+    }
+
+    public void showToast(String x){
+        Toast.makeText(getActivity(), x, Toast.LENGTH_SHORT).show();
+    }
+
+    public String changeDateIntoRequiredFormat(String x){
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            format.setTimeZone(TimeZone.getTimeZone("GMT"));
+            Date GMTDate = format.parse(x);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+            formatter.setTimeZone(TimeZone.getDefault());
+            String LocalDate = formatter.format(GMTDate);
+            return LocalDate;
+        }catch (ParseException e){
+            return "Server down..Login after some time";
+        }
     }
 }

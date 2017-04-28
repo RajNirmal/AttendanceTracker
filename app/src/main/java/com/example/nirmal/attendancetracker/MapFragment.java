@@ -3,6 +3,7 @@ package com.example.nirmal.attendancetracker;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -40,6 +41,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.nio.channels.Pipe;
+import java.security.PrivateKey;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +50,7 @@ import java.util.Map;
 import java.util.logging.LogRecord;
 
 import static android.content.Context.LOCATION_SERVICE;
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by nirmal on 24/4/17.
@@ -91,7 +94,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
                 AlertBuilder(title,body);
             }
         });
-        myGoogleClient.connect();
+//        myGoogleClient.connect();
         MapsInitializer.initialize(this.getActivity());
         runnable = new Runnable() {
             @Override
@@ -102,14 +105,14 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
                         floatingActionButton.setEnabled(true);
                     }else{
                         floatingActionButton.setEnabled(false);
-                        Toast.makeText(getActivity(), "Please switch in Wi-Fi, GPS and login again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Please switch on Wi-Fi, GPS and login again", Toast.LENGTH_SHORT).show();
                     }
                 }finally {
                     handler.postDelayed(runnable,2000);
                 }
             }
         };
-        runnable.run();
+//        runnable.run();
         return subView;
     }
 
@@ -130,7 +133,6 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-
     public void AlertBuilder(String AlertTitle, String AlertBody,boolean flag){
         final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setTitle(AlertTitle);
@@ -150,8 +152,8 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
         alert.setNegativeButton("Stop Attendance", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(SingletonDataClass.SharedPrefsFlag == 1){
-                    SingletonDataClass.SharedPrefsFlag = 0;
+                if(getSharedPrefsFlag() == 1){
+                    writeSharedPrefsFlag(0);
                     updateDataInServer();
                 }else {
                     Toast.makeText(getActivity(), "You must log in first", Toast.LENGTH_SHORT).show();
@@ -161,10 +163,10 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
         alert.setPositiveButton("Start Attendance", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(SingletonDataClass.SharedPrefsFlag == 0){
+                if(getSharedPrefsFlag() == 0){
                     if(myFlag){
+                        writeSharedPrefsFlag(1);
                         insertDataInServer();
-                        SingletonDataClass.SharedPrefsFlag = 1;
                     }else{
                         String title = "You are not in the location";
                         String body = "Please try to log in after you are inside the blue circle";
@@ -178,7 +180,20 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
 
         alert.show();
     }
-
+    public int getSharedPrefsFlag(){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SingletonDataClass.SharedPrefsName, MODE_PRIVATE);
+        int x = sharedPreferences.getInt(SingletonDataClass.SharedPrefsFlag,-99);
+        if(x!=-99)
+            return x;
+        else
+            return 0;
+    }
+    public void writeSharedPrefsFlag(int j){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SingletonDataClass.SharedPrefsName, MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putInt(SingletonDataClass.SharedPrefsFlag,j);
+        edit.commit();
+    }
     public boolean checkIfTheUserIsInCampus(Location newLocation){
         float Distance = SingletonDataClass.distFrom(newLocation.getLatitude(),newLocation.getLongitude(), SingletonDataClass.CampusLatitude, SingletonDataClass.CampusLongitude);
         //If the user is in 300 metres of the campus then he can be logged in.
@@ -189,12 +204,11 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
             return false;
         }
     }
-
     public void updateDataInServer(){
         StringRequest sr = new StringRequest(Request.Method.POST, SingletonDataClass.URLUpdate, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -239,7 +253,6 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
         };
         SingletonDataClass.VolleyRequestQueue.add(sr);
     }
-
     public void writeCurrentDataToLocalDB(){
         //Get The Unique ID
         ArrayList<DataEntryModel> allEntries = dbHelperInstance.getAllEntries();
@@ -251,7 +264,6 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
         }
 //        DataEntryModel WriteIntoDB = new DataEntryModel(UniqueId,"Default",)
     }
-
     public int getMax(ArrayList<DataEntryModel> data){
         int max = 0;
         for(int i=0;i<data.size();i++){
@@ -276,7 +288,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
                 AlertBuilder(title,body);
             }
         }else{
-            ((MainActivity)getActivity()).AlertBuilder("Location Null");
+            ((MainActivity)getActivity()).AlertBuilder("Please turn on GPS and connect to the internet");
         }
     }
 
@@ -317,7 +329,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
         //and Check if user has allowed location permission
         myFlag = checkIfTheUserIsInCampus(location);
         if(myFlag){
-            AlertBuilder(title,body);
+//            AlertBuilder(title,body);
         }
     }
 

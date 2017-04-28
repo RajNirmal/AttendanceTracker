@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@color/textWhite"
+        android:id="@+id/toolbar2"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textBlack"
+        android:textSize="@dimen/text_size_side_heading"
+        android:text="User ID"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/edittext_margin"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/usernametextsettings"
+        android:textColor="@color/textBlack"
+        android:textSize="@dimen/text_size_side_heading"
+        android:text="Hello"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/top_margin"
+            android:textColor="@color/textWhite"
+            android:theme="@style/RippleButton2"
+            android:id="@+id/showSTP"
+            android:text="Show STP"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/textWhite"
+            android:layout_margin="@dimen/top_margin"
+            android:theme="@style/RippleButton2"
+            android:id="@+id/changeSTP"
+            android:text="Change STP"/>
+
+    </LinearLayout>
+
+</LinearLayout>
