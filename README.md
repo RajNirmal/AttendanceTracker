@@ -4,7 +4,7 @@ AttendanceTracker - Rokensho
 To create a simple system which allows the user to log in and automatically log off for their college/work
 
 <h3>The Tech</h3>
-![Tech Stack](https://i.imgur.com/HyKTg8B.png)
+![Tech Stack](https://imgur.com/HyKTg8B.png)
 
 <h3>What is special?</h3>
 <p>Nothing much actually</p>
@@ -24,4 +24,4 @@ To create a simple system which allows the user to log in and automatically log 
 <br>
 ![Start tracking](https://i.imgur.com/SRMiB05.png)
 <br>
-![History](https://i.imgur.com/vCIYWnK.png)
+<blockquote class="imgur-embed-pub" lang="en" data-id="vCIYWnK"><a href="//imgur.com/vCIYWnK">View post on imgur.com</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
