@@ -23,4 +23,6 @@ To create a simple system which allows the user to log in and automatically log 
 <img src = https://i.imgur.com/2ljUEgF.png height = 500 width = 300>
 <p> Location tracking</p>
 <img src = https://i.imgur.com/SRMiB05.png height = 500 width = 300>
-<p> Attendence history</p>
+<p> Attendance </p>
+<img src = https://i.imgur.com/vCIYWnK.png height = 500 width = 300>
+<p>Location History</p>
