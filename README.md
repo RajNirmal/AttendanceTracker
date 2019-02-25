@@ -16,12 +16,12 @@ To create a simple system which allows the user to log in and automatically log 
 <hr>
 
 <h4>Some Screenshots</h4>
-[Login](https://i.imgur.com/iEK3Ixf.png)
+![Login](https://i.imgur.com/iEK3Ixf.png)
 <br>
-[STP](https://i.imgur.com/LVRFcMH.png)
+![STP](https://i.imgur.com/LVRFcMH.png)
 <br>
-[Not in location](https://i.imgur.com/2ljUEgF.png)
+![Not in location](https://i.imgur.com/2ljUEgF.png)
 <br>
-[Start tracking](https://i.imgur.com/SRMiB05.png)
+![Start tracking](https://i.imgur.com/SRMiB05.png)
 <br>
-[History](https://i.imgur.com/vCIYWnK.png)
+![History](https://i.imgur.com/vCIYWnK.png)
