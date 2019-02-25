@@ -1,5 +1,5 @@
 AttendanceTracker - Rokensho
-
+![](/app/src/main/res/drawable/rokensho.jpg)
 <h1>The Idea</h1>
 To create a simple system which allows the user to log in and automatically log off for their college/work
 
