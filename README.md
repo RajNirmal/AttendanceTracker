@@ -1,10 +1,9 @@
 AttendanceTracker - Rokensho
-![](/app/src/main/res/drawable/rokensho.jpg)
 <h1>The Idea</h1>
 To create a simple system which allows the user to log in and automatically log off for their college/work
 
 <h3>The Tech</h3>
-![Tech Stack](https://imgur.com/HyKTg8B.png)
+<img src= https://imgur.com/HyKTg8B.png>
 
 <h3>What is special?</h3>
 <p>Nothing much actually</p>
@@ -12,16 +11,16 @@ To create a simple system which allows the user to log in and automatically log 
   <li>An app lock kind of implementation which will ask you to enter a passcode everytime you open the app</li>
   <li>An interactive map to show exactly how far you are away from the zone</li>
   <li>Auto log off after 7 hours or user walks out of campus</li>
+</ul>
 
 <hr>
 
 <h4>Some Screenshots</h4>
-![Login](https://i.imgur.com/iEK3Ixf.png)
-<br>
-![STP](https://i.imgur.com/LVRFcMH.png)
-<br>
-![Not in location](https://i.imgur.com/2ljUEgF.png)
-<br>
-![Start tracking](https://i.imgur.com/SRMiB05.png)
-<br>
-<blockquote class="imgur-embed-pub" lang="en" data-id="vCIYWnK"><a href="//imgur.com/vCIYWnK">View post on imgur.com</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+<img src = https://i.imgur.com/iEK3Ixf.png height = 500 width = 300>
+<p> Login Screen</p>
+<img src = https://i.imgur.com/LVRFcMH.png height = 500 width = 300>
+<p> App lock</p>
+<img src = https://i.imgur.com/2ljUEgF.png height = 500 width = 300>
+<p> Location tracking</p>
+<img src = https://i.imgur.com/SRMiB05.png height = 500 width = 300>
+<p> Attendence history</p>
